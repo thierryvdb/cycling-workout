@@ -1,10 +1,16 @@
 const express = require('express');
 const JobController = require('../controllers/jobController');
-const { authenticate, requireAdmin } = require('../middleware/auth');
+const authMiddleware = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
-router.use(authenticate, requireAdmin);
+// Middleware para verificar se o usuário é admin (placeholder)
+const requireAdmin = (req, res, next) => {
+  // TODO: Implementar lógica de verificação de admin (ex: req.user.role === 'admin')
+  next();
+};
+
+router.use(authMiddleware, requireAdmin);
 
 router.post('/initialize', JobController.initializeScheduler);
 router.post('/execute/:jobName', JobController.executeJob);

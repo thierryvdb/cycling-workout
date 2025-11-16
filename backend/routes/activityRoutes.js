@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ActivityController = require('../controllers/activityController');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware.js');
 
 // Todas as rotas aqui são protegidas e requerem autenticação
 router.use(authMiddleware);

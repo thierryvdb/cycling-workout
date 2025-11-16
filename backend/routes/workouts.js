@@ -1,10 +1,10 @@
 const express = require('express');
 const WorkoutController = require('../controllers/workoutController');
-const { authenticate } = require('../middleware/auth');
+const authMiddleware = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
-router.use(authenticate);
+router.use(authMiddleware);
 
 router.post('/', WorkoutController.createWorkout);
 router.get('/', WorkoutController.getWorkouts);
