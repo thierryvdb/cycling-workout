@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import { useAuthStore } from './stores/authStore'
 
 import './assets/css/global.css'
 
@@ -10,6 +11,10 @@ const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+
+// Inicializa autenticação
+const authStore = useAuthStore()
+authStore.initializeAuth()
 
 app.config.errorHandler = (err, instance, info) => {
   console.error('Erro Vue:', err)

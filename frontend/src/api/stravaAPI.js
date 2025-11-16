@@ -1,6 +1,6 @@
-import axios from 'axios'
+import apiClient from './axios'
 
-const API_URL = '/api/strava'
+const API_URL = '/strava'
 
 export const stravaAPI = {
   /**
@@ -10,7 +10,7 @@ export const stravaAPI = {
    */
   async authenticate(authorizationCode) {
     try {
-      const response = await axios.post(`${API_URL}/auth`, {
+      const response = await apiClient.post(`${API_URL}/auth`, {
         code: authorizationCode
       })
       return response.data
@@ -27,7 +27,7 @@ export const stravaAPI = {
    */
   async syncActivities(force = false) {
     try {
-      const response = await axios.post(`${API_URL}/sync`, { force })
+      const response = await apiClient.post(`${API_URL}/sync`, { force })
       return response.data
     } catch (error) {
       console.error('Erro ao sincronizar atividades:', error)
@@ -43,7 +43,7 @@ export const stravaAPI = {
   async getActivities(filters = {}) {
     try {
       const params = new URLSearchParams(filters)
-      const response = await axios.get(`${API_URL}/activities?${params}`)
+      const response = await apiClient.get(`${API_URL}/activities?${params}`)
       return response
     } catch (error) {
       console.error('Erro ao buscar atividades:', error)
@@ -58,7 +58,7 @@ export const stravaAPI = {
    */
   async getActivityDetails(activityId) {
     try {
-      const response = await axios.get(`${API_URL}/activities/${activityId}`)
+      const response = await apiClient.get(`${API_URL}/activities/${activityId}`)
       return response
     } catch (error) {
       console.error('Erro ao buscar detalhes da atividade:', error)
@@ -74,7 +74,7 @@ export const stravaAPI = {
    */
   async linkActivityToWorkout(stravaActivityId, workoutId) {
     try {
-      const response = await axios.post(`${API_URL}/activities/${stravaActivityId}/link`, {
+      const response = await apiClient.post(`${API_URL}/activities/${stravaActivityId}/link`, {
         workout_id: workoutId
       })
       return response
@@ -91,7 +91,7 @@ export const stravaAPI = {
    */
   async unlinkActivity(stravaActivityId) {
     try {
-      const response = await axios.delete(`${API_URL}/activities/${stravaActivityId}/link`)
+      const response = await apiClient.delete(`${API_URL}/activities/${stravaActivityId}/link`)
       return response
     } catch (error) {
       console.error('Erro ao desvincular atividade:', error)
@@ -105,7 +105,7 @@ export const stravaAPI = {
    */
   async getAuthorizationUrl() {
     try {
-      const response = await axios.get(`${API_URL}/auth/url`)
+      const response = await apiClient.get(`${API_URL}/auth/url`)
       return response.data
     } catch (error) {
       console.error('Erro ao obter URL de autorização:', error)
@@ -119,7 +119,7 @@ export const stravaAPI = {
    */
   async disconnect() {
     try {
-      const response = await axios.post(`${API_URL}/disconnect`)
+      const response = await apiClient.post(`${API_URL}/disconnect`)
       return response
     } catch (error) {
       console.error('Erro ao desconectar Strava:', error)
@@ -133,7 +133,7 @@ export const stravaAPI = {
    */
   async getConnectionStatus() {
     try {
-      const response = await axios.get(`${API_URL}/status`)
+      const response = await apiClient.get(`${API_URL}/status`)
       return response.data
     } catch (error) {
       console.error('Erro ao verificar status da conexão:', error)

@@ -5,10 +5,12 @@ class WorkoutController {
   static async createWorkout(req, res) {
     try {
       const { name, description, blocks, sport_type } = req.body;
-      const userId = req.user.id;
+      // Mock user para testes sem autenticação
+      const userId = req.user?.id || 1;
+      const userFtp = req.user?.ftp || 250;
 
       const total_duration = blocks.reduce((sum, block) => sum + block.duration, 0);
-      const total_tss = this.calculateTotalTSS(blocks, req.user.ftp);
+      const total_tss = this.calculateTotalTSS(blocks, userFtp);
 
       const workoutData = {
         user_id: userId,
@@ -38,7 +40,8 @@ class WorkoutController {
 
   static async getWorkouts(req, res) {
     try {
-      const userId = req.user.id;
+      // Mock user para testes sem autenticação
+      const userId = req.user?.id || 1;
       const workouts = await Workout.findByUserId(userId);
 
       res.json({
@@ -88,8 +91,11 @@ class WorkoutController {
       const { workoutId } = req.params;
       const { name, description, blocks, sport_type } = req.body;
 
+      // Mock user para testes sem autenticação
+      const userFtp = req.user?.ftp || 250;
+
       const total_duration = blocks.reduce((sum, block) => sum + block.duration, 0);
-      const total_tss = this.calculateTotalTSS(blocks, req.user.ftp);
+      const total_tss = this.calculateTotalTSS(blocks, userFtp);
 
       const workoutData = {
         name,

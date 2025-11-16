@@ -1,6 +1,6 @@
-import axios from 'axios'
+import apiClient from './axios'
 
-const API_URL = '/api/workouts'
+const API_URL = '/workouts'
 
 export const workoutAPI = {
   /**
@@ -10,7 +10,7 @@ export const workoutAPI = {
    */
   async createWorkout(workoutData) {
     try {
-      const response = await axios.post(API_URL, workoutData)
+      const response = await apiClient.post(API_URL, workoutData)
       return response
     } catch (error) {
       console.error('Erro ao criar treino:', error)
@@ -24,7 +24,7 @@ export const workoutAPI = {
    */
   async getWorkouts() {
     try {
-      const response = await axios.get(API_URL)
+      const response = await apiClient.get(API_URL)
       return response
     } catch (error) {
       console.error('Erro ao buscar treinos:', error)
@@ -39,7 +39,7 @@ export const workoutAPI = {
    */
   async getWorkoutById(workoutId) {
     try {
-      const response = await axios.get(`${API_URL}/${workoutId}`)
+      const response = await apiClient.get(`${API_URL}/${workoutId}`)
       return response
     } catch (error) {
       console.error('Erro ao buscar treino:', error)
@@ -55,7 +55,7 @@ export const workoutAPI = {
    */
   async updateWorkout(workoutId, workoutData) {
     try {
-      const response = await axios.put(`${API_URL}/${workoutId}`, workoutData)
+      const response = await apiClient.put(`${API_URL}/${workoutId}`, workoutData)
       return response
     } catch (error) {
       console.error('Erro ao atualizar treino:', error)
@@ -70,7 +70,7 @@ export const workoutAPI = {
    */
   async deleteWorkout(workoutId) {
     try {
-      const response = await axios.delete(`${API_URL}/${workoutId}`)
+      const response = await apiClient.delete(`${API_URL}/${workoutId}`)
       return response
     } catch (error) {
       console.error('Erro ao deletar treino:', error)
@@ -86,7 +86,7 @@ export const workoutAPI = {
    */
   async exportWorkout(workoutId, format) {
     try {
-      const response = await axios.get(`${API_URL}/${workoutId}/export/${format}`, {
+      const response = await apiClient.get(`${API_URL}/${workoutId}/export/${format}`, {
         responseType: 'blob'
       })
       return response
@@ -103,7 +103,7 @@ export const workoutAPI = {
    */
   async duplicateWorkout(workoutId) {
     try {
-      const response = await axios.post(`${API_URL}/${workoutId}/duplicate`)
+      const response = await apiClient.post(`${API_URL}/${workoutId}/duplicate`)
       return response
     } catch (error) {
       console.error('Erro ao duplicar treino:', error)
