@@ -1,5 +1,5 @@
 const StravaService = require('../services/StravaService');
-const StravaActivity = require('../models/StravaActivity');
+const Activity = require('../models/Activity');
 const User = require('../models/User');
 
 class StravaController {
@@ -90,7 +90,7 @@ class StravaController {
     const savedActivities = [];
 
     for (const stravaActivity of stravaActivities) {
-      const existingActivity = await StravaActivity.findByStravaId(stravaActivity.id);
+      const existingActivity = await Activity.findByStravaId(stravaActivity.id);
       
       if (!existingActivity || force) {
         const activityData = {
@@ -131,7 +131,7 @@ class StravaController {
           activityData.sync_status = 'matched';
         }
 
-        const savedActivity = await StravaActivity.create(activityData);
+        const savedActivity = await Activity.create(activityData);
         savedActivities.push(savedActivity);
       }
     }
@@ -194,7 +194,7 @@ class StravaController {
       const userId = req.user.id;
       const { workout_id, start_date, end_date, limit } = req.query;
 
-      const activities = await StravaActivity.findByUserId(userId, {
+      const activities = await Activity.findByUserId(userId, {
         workout_id,
         start_date,
         end_date,
@@ -220,7 +220,7 @@ class StravaController {
       const { strava_activity_id, workout_id } = req.body;
       const userId = req.user.id;
 
-      const activity = await StravaActivity.findByStravaId(strava_activity_id);
+      const activity = await Activity.findByStravaId(strava_activity_id);
       
       if (!activity || activity.user_id !== userId) {
         return res.status(404).json({
@@ -229,7 +229,7 @@ class StravaController {
         });
       }
 
-      const updatedActivity = await StravaActivity.updateWorkoutMatch(
+      const updatedActivity = await Activity.updateWorkoutMatch(
         strava_activity_id, 
         workout_id, 
         1.0,
@@ -256,7 +256,7 @@ class StravaController {
       const { activityId } = req.params;
       const userId = req.user.id;
 
-      const activity = await StravaActivity.getActivityWithStreams(activityId);
+      const activity = await Activity.findById(activityId);
       
       if (!activity || activity[0].user_id !== userId) {
         return res.status(404).json({

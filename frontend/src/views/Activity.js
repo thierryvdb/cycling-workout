@@ -61,6 +61,12 @@ class Activity {
     return rows[0];
   }
 
+  static async findByStravaId(stravaId) {
+    const query = 'SELECT * FROM activities WHERE strava_id = $1;';
+    const { rows } = await db.query(query, [stravaId]);
+    return rows[0];
+  }
+
   static async findLastSyncTimestamp(userId) {
     const query = `
       SELECT start_date FROM activities
