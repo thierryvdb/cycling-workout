@@ -58,14 +58,6 @@ const routes = [
       requiresAuth: true
     }
   },
-
-### 4. Atualização das Rotas do Frontend (`router/index.js`)
-
-Criei a nova rota para a página de detalhes e a adicionei à configuração do roteador.
-
-```diff
---- a/frontend/src/router/index.js
-+++ b/frontend/src/router/index.js
   {
     path: '/auth/strava/callback',
     name: 'StravaCallback',
