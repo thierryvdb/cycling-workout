@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173', // Porta padrão do Vite
+  'http://workout.maragojipe.com',
   'https://workout.maragojipe.com'
 ];
 
@@ -62,9 +63,10 @@ app.use('*', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌐 Accessible at: http://workout.maragojipe.com`);
 });
 
 module.exports = app;
