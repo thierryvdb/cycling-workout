@@ -13,6 +13,11 @@ export default defineConfig({
     host: '0.0.0.0', // Permite acesso externo
     port: 3000,
     strictPort: false,
+    allowedHosts: [
+      'workout.maragojipe.com',
+      'localhost',
+      '.maragojipe.com' // Permite qualquer subdomínio
+    ],
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
