@@ -68,15 +68,15 @@
 import { onMounted, computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useActivityStore } from '@/stores/activityStore';
-import ActivityMap from '../components/ActivityMap.vue';
-import PerformanceChart from '../components/PerformanceChart.vue';
+import ActivityMap from '@/components/ActivityMap.vue';
+import PerformanceChart from '@/components/PerformanceChart.vue';
 import {
   formatDate as formatDateUtil,
   formatDistance,
   formatTime as formatTimeUtil,
   formatElevation,
   formatPower,
-} from '../utils/formatters';
+} from '@/utils/formatters';
 
 const props = defineProps({
   activityId: {
