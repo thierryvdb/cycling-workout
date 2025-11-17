@@ -11,6 +11,9 @@
     <!-- Componente de estatísticas gerais do atleta -->
     <athlete-stats :stats="currentUser" />
 
+    <!-- Widget de TSS Semanal -->
+    <weekly-tss-widget />
+
     <div class="dashboard-content">
       <div class="quick-actions-section">
         <h2>⚡ Ações Rápidas</h2>
@@ -121,9 +124,14 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useWorkoutStore } from '@/stores/workoutStore'
 import AthleteStats from '@/components/Dashboard/AthleteStats.vue'
+import WeeklyTSSWidget from '@/components/Dashboard/WeeklyTSSWidget.vue'
 
 export default {
   name: 'Dashboard',
+  components: {
+    AthleteStats,
+    WeeklyTSSWidget
+  },
   setup() {
     const workoutStore = useWorkoutStore()
     const router = useRouter()
@@ -171,9 +179,6 @@ export default {
       exportWorkout,
       showTemplates
     }
-  },
-  components: {
-    AthleteStats
   }
 }
 </script>
